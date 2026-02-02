@@ -7,6 +7,8 @@
 if getgenv().FISH_AUTOMATION_LOADED then return end
 getgenv().FISH_AUTOMATION_LOADED = true
 
+print("[FishAutomation] SCRIPT START")
+
 -- ================= USER CONFIG =================
 local Mode = "V1" -- "V1" | "V2" | "V3"
 
@@ -67,17 +69,19 @@ local function rand(min, max)
 end
 
 -- ================= REMOTE EVENTS =================
--- PASTIKAN NAMA EVENT SESUAI GAME
+-- ⚠️ GANTI NAMA EVENT INI SESUAI GAME (PALING SERING BEDA)
 local CastEvent = ReplicatedStorage:FindFirstChild("CastFishing")
 local ReelEvent = ReplicatedStorage:FindFirstChild("ReelFishing")
 local SellEvent = ReplicatedStorage:FindFirstChild("Selling")
 
-if not CastEvent or not ReelEvent then
-    warn("[FishAutomation] CastFishing / ReelFishing tidak ditemukan")
+if not CastEvent then
+    warn("[FishAutomation] CastFishing event TIDAK ditemukan")
 end
-
+if not ReelEvent then
+    warn("[FishAutomation] ReelFishing event TIDAK ditemukan")
+end
 if not SellEvent then
-    warn("[FishAutomation] Selling event tidak ditemukan")
+    warn("[FishAutomation] Selling event TIDAK ditemukan")
 end
 
 -- ================= INVENTORY =================
@@ -104,7 +108,7 @@ local function DoFishing()
     -- Lempar kail
     CastEvent:FireServer()
 
-    -- Tunggu ikan
+    -- Tunggu ikan nyangkut
     task.wait(rand(Active.FishingDelay[1], Active.FishingDelay[2]))
 
     -- Tarik kail
